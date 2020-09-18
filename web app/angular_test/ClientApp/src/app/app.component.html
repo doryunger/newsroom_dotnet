@@ -1,0 +1,76 @@
+<mat-toolbar id="toolbar" color="primary" (scroll)="scrollHandler($event)"  (window:resize)="onResize($event)">
+  
+  <button mat-button id="sideOpen" (click)="sidenav.open()" (click)="topScreen()" ><mat-icon>menu</mat-icon></button>
+  <span id="headline">News Headlines</span>  
+  <span class="example-spacer"></span>
+  <div class='search'>
+  <input class="searchText" type="text" (input)="ValidateText(serachtext.value,alert)"  #serachtext>
+  <button class="searchBtn" [disabled]=disabled (click)="serachByterm(serachtext.value,alert)">
+  <fa-icon [styles]="{'font-size':'18px'}" [icon]="['fas', 'search']"></fa-icon>
+  </button>
+  <div class="alert-box warning" #alert> </div>
+  </div>
+  
+  <!--button mat-button [matMenuTriggerFor]="appMenu"><mat-icon>settings</mat-icon></button-->
+  
+</mat-toolbar>
+
+
+
+
+
+<mat-menu id="help" #appMenu="matMenu">
+  <!--button mat-menu-item> Settings </button-->
+  <button mat-menu-item> Help </button>
+</mat-menu>
+
+
+
+<mat-sidenav-container class="example-container">
+ 
+  <mat-sidenav #sidenav class="example-sidenav">
+    <mat-nav-list class="list-horizontal">
+      <mat-list-item  class="list-horizontal"[ngStyle]="{'background-color':status === 'countries' ? '#673ab7' : 'white','color':status === 'countries' ? 'white' : 'black'  }" id="countries" (click)="setStatus('countries')" > Countries</mat-list-item>
+      <mat-list-item class="list-horizontal" [ngStyle]="{'background-color':status === 'countries' ? 'white' : '#673ab7','color':status === 'countries' ? 'black' : 'white' }" id="source" (click)="setStatus('source')" >Sources</mat-list-item>
+    </mat-nav-list>
+    <!--mat-action-list>
+      <button id="countries" mat-button  color="primary" (click)="setStatus('countries')">Toggle1</button>
+      <button id="source" mat-button  color="primary" (click)="setStatus('source')">Toggle2</button>
+    </mat-action-list-->
+    <mat-list class="list-nav">
+        <mat-list-item class="list-item" *ngFor="let source of mSources" (click)="searchArticles('',source.id);sidenav.close();" [routerLink]="[source.id]"  [routerLinkActive]="['active']">
+          
+          <!--div mat-card-avatar [ngStyle]="{'background-image': 'url(../news/assets/images/'+ source.id +'.png)'}" class="example-header-image"></div-->
+          <div mat-card-avatar [ngStyle]="{'background-image': 'url(../news/assets/images/'+ source.id +'.png)'}" class="example-header-image"></div>
+          <span class="source-name"> {{source.name}}</span>
+        
+        </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  
+   <div id="updateDate">{{lastUpdate}}</div>
+  <mat-card id="articleCard" class="example-card"  *ngFor="let article of mArticles">
+    <mat-card-header>
+      <!--div mat-card-avatar [ngStyle]="{'background-image': 'url(../assets/images/'+ article.source.id +'.png)'}" class="example-header-image"></div-->
+      <mat-card-title class="title">{{article.title}}</mat-card-title>
+      <mat-card-subtitle>{{article.source.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="img-article"  [ngStyle]="{'height':article.urlToImage === null ? '10px' : '350px' }" src={{article.urlToImage}} alt="">
+    <mat-card-content>
+      <p>
+        {{article.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions class="action-buttons">
+      <!--button mat-button color="primary"><mat-icon>thumb_up_alt</mat-icon> 12 Likes</button-->
+      <!--button mat-button color="primary"><mat-icon>comment</mat-icon> Comments</button-->
+      <button id="share" mat-button color="primary" (click)="openDialog({title:article.title,url:article.url})"><mat-icon>share</mat-icon> Share</button>
+      <a id="view" mat-button color="primary" href={{article.url}} target="_blank" ><mat-icon>visibility</mat-icon> View</a>
+    </mat-card-actions>
+  </mat-card>
+
+</mat-sidenav-container>
+
+
+
+

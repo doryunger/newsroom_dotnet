@@ -1,0 +1,21 @@
+<div class="linksContainer">
+    <a class="socaiLink" href={{data.links.Twitter}} target="_blank">
+      <fa-icon [styles]="{'color': ' #1da1f2','font-size':'30px'}" [icon]="['fab', 'twitter']"></fa-icon>
+    </a>
+    <a class="socaiLink" href={{data.links.Facebook}} target="_blank">
+      <fa-icon [styles]="{'color': ' #3b5998','font-size':'30px'}" [icon]="['fab', 'facebook']"></fa-icon>
+    </a>
+    <a class="socaiLink" href={{data.links.WhatsApp}} target="_blank">
+        <fa-icon [styles]="{'color': '#25d366','font-size':'30px'}" [icon]="['fab', 'whatsapp']"></fa-icon>
+    </a>
+    <a class="socaiLink" href={{data.links.LinkedIn}} target="_blank">
+      <fa-icon [styles]="{'color': '#0077b5','font-size':'30px'}" [icon]="['fab', 'linkedin']"></fa-icon>
+    </a>
+    </div>
+    <div class="copyText">
+      <input class="linkText" type="text" value={{data.links.URL}} #userinput>
+      <a  class="copyBtn" (click)="copyInputMessage(userinput)" >
+        <fa-icon [styles]="{'color': '#ffffff','font-size':'20px'}" [icon]="['far', 'copy']"></fa-icon>
+      </a>
+    </div>
+    <button class="closeButton" mat-button mat-dialog-close>Close</button>
