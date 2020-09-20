@@ -34,7 +34,7 @@ namespace newsapi
             services.AddMvc(option => option.EnableEndpointRouting = false)
             .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddDbContext<newsContext>(options =>
-options.UseNpgsql("Host = localhost; Database = news; Username = dor; Password = passwd"));
+options.UseNpgsql({connectionString}));
             services.AddSwaggerGen(gen =>
             {
                 gen.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Book Stores API", Version = "v1.0" });
